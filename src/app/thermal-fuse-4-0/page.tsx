@@ -268,10 +268,10 @@ const ThermalFuse = () => {
             onValueChange={(val: string) => handleSelectChange(Number(val))}>
             <Label>Icon Set : </Label>
             <SelectTrigger className="w-32 mr-auto">
-              <SelectValue placeholder="Select target Score" />
+              <SelectValue placeholder="Select icon set" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem selected value="0">1</SelectItem>
+              <SelectItem value="0">1</SelectItem>
               <SelectItem value="1">2</SelectItem>
               <SelectItem value="2">3</SelectItem>
             </SelectContent>

@@ -96,17 +96,19 @@ const SameGame = () => {
     return reFreshedBoard
   }
 
-  const reOrder = (grid: string[][]) => {
+  const reOrder = (grid: string[][]): string[][] => {
     const bottomPadded = rotateRight(grid).map((arr) =>
       arr.filter((box) => box !== "").concat(arr.filter((box) => box === ""))
-    )
-    const blankRows = bottomPadded.filter((row) =>
+    );
+  
+    const blankRows: string[][] = bottomPadded.filter((row) =>
       row.every((cell) => cell === "")
-    )
+    );
+  
     return rotateLeft(
       bottomPadded.filter((row) => !blankRows.includes(row)).concat(blankRows)
-    )
-  }
+    );
+  };
 
   const getSolvable = (grid: string[][]) => {
     const visited = [...Array(row)].map((_) => Array(col).fill(false))
