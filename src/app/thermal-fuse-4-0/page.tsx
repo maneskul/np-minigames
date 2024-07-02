@@ -265,6 +265,7 @@ const ThermalFuse = () => {
             <SelectContent>
               <SelectItem value="24">24</SelectItem>
               <SelectItem value="28">28</SelectItem>
+              <SelectItem value="30">30</SelectItem>
             </SelectContent>
           </Select>
           {score} / {targetScore}
