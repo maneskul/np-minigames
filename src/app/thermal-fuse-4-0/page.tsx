@@ -61,6 +61,11 @@ const ThermalFuse = () => {
   const [comboText, setComboText] = useState("")
   const [targetScore, setTargetScore] = useState(24)
   const [board, setBoard] = useState<ThermalFuseTile[][]>([])
+  const [selectedValue, setSelectedValue] = useState<number>(0);
+
+  useEffect(() => {
+    setIconSet(iconBag[selectedValue]);
+  }, [selectedValue]);
 
   useEffect(() => {
     if (combo === 3) {
@@ -128,9 +133,7 @@ const ThermalFuse = () => {
 
   const startGame = () => {
     setSolvable(true)
-    const newIconSet = iconBag[Math.floor(Math.random() * 3)]
-    setIconSet(newIconSet)
-    const generatedBoard = generateBoard(row, col, newIconSet)
+    const generatedBoard = generateBoard(row, col, iconSet)
     setBoard(generatedBoard)
     setLoading(true)
     setResult("Init")
@@ -145,6 +148,11 @@ const ThermalFuse = () => {
       setLoading(false)
     }, 3000)
   }
+
+  const handleSelectChange = (selectedIndex: number) => {
+    setSelectedValue(selectedIndex);
+    setIconSet(iconBag[selectedIndex]);
+  };
 
   const handleTileClick = useCallback(
     (x: number, y: number) => {
@@ -254,6 +262,26 @@ const ThermalFuse = () => {
       <Header title="Thermal Fuse - Maze bank" />
       <Description desc={thermalFuseDescription} />
       <section className="flex flex-1 flex-col items-center justify-center gap-4 w-full">
+      <div className="flex flex-row items-center justify-between gap-2 w-[30rem] mt-auto px-2">
+          <Select
+            defaultValue={(0).toString()}
+            onValueChange={(val: string) => handleSelectChange(Number(val))}>
+            <Label>Icon Set : </Label>
+            <SelectTrigger className="w-32 mr-auto">
+              <SelectValue placeholder="Select target Score" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem selected value="0">1</SelectItem>
+              <SelectItem value="1">2</SelectItem>
+              <SelectItem value="2">3</SelectItem>
+            </SelectContent>
+            <ul>
+              {iconSet.map((icon, index) => (
+                <li key={index}>{icon}</li>
+              ))}
+            </ul>
+          </Select>
+        </div>
         <div className="flex flex-row items-center justify-between gap-2 w-[30rem] mt-auto px-2">
           <Select
             defaultValue={targetScore.toString()}
